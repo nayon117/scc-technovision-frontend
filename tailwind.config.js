@@ -7,12 +7,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        "green":"#0b4534",
-        "ash":"#d7e0e4",
-        "accent":"#a8c200",
+        "first":"#008000",
+        "second":"#70e000",
+        "third":"#edf6f9",
       } 
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 }
 

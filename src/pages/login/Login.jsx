@@ -3,7 +3,8 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
-// import GoogleLogin from "../GoogleLogin/GoogleLogin";
+import SocialLogin from "./SocialLogin";
+ 
 
 const Login = () => {
 
@@ -136,7 +137,7 @@ const Login = () => {
                   </Link>
                </p>
                <p className="divider">or</p> 
-              {/* <GoogleLogin></GoogleLogin> */}
+              <SocialLogin/>
               </form>
            
             </div>

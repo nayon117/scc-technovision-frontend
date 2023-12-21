@@ -3,7 +3,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
-// import GoogleLogin from "../GoogleLogin/GoogleLogin";
+import SocialLogin from "../login/SocialLogin";
 const Register = () => {
   // states
   const [showPassword, setShowPassword] = useState(false);
@@ -178,7 +178,7 @@ const Register = () => {
                 </Link>
               </p>
               <p className="divider">or</p>
-            {/* <GoogleLogin></GoogleLogin> */}
+            <SocialLogin/>
             </form>
             
           </div>

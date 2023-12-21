@@ -6,6 +6,7 @@ import Blog from "../pages/blog/Blog";
 import Contact from "../pages/contact/Contact";
 import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
+import Faq from "../pages/faq/Faq";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact/> ,
+      },
+      {
+        path: "/faq",
+        element:<Faq/> ,
       },
     ],
   },

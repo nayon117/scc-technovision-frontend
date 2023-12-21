@@ -15,7 +15,7 @@ const Navbar = () => {
   ];
   let [open, setOpen] = useState(false);
   return (
-    <div className="max-w-screen-xl bg-third mx-auto shadow-md w-full fixed top-0 left-0 right-0">
+    <header className="max-w-screen-xl bg-third mx-auto shadow-md w-full fixed top-0 left-0 right-0">
       <div className="md:flex items-center justify-between py-4 px-4 md:px-8 lg:px-16">
         <div
           className="font-bold text-2xl cursor-pointer flex items-center   
@@ -68,7 +68,7 @@ const Navbar = () => {
           </div>   
         </ul>
       </div>
-    </div>
+    </header>
   );
 };
 export default Navbar;

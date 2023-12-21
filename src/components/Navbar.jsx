@@ -2,10 +2,11 @@ import { useState } from "react";
 import { IoClose, IoMenu } from "react-icons/io5";
 import { SiTask } from "react-icons/si";
 import { Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 const Navbar = () => {
 
-  const user = 'hasan'
+  const {user,logOut} = useAuth()
 
   let navItems = [
     { name: "Home", link: "/" },
@@ -51,39 +52,20 @@ const Navbar = () => {
           {/* login logout functionality */}
           <div>
           {user ? (
-          <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-              <div className="w-10 rounded-full">
-                <img src={user.photoURL} />
-              </div>
-            </label>
-            <ul
-              tabIndex={0}
-              className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
-            >
-              <li>
-                <button className="btn btn-sm whitespace-nowrap  btn-ghost">
-                  {user.displayName}
-                </button>
-              </li>
-
-              <li>
-                <button
-                 
-                  className="btn btn-sm whitespace-nowrap  btn-ghost"
-                >
-                  Logout
-                </button>
-              </li>
-            </ul>
-          </div>
+          <li>
+          <button
+            onClick={logOut}
+            className="ml-3 text-gray-800 hover:text-second duration-500 text-xl"
+          >
+            Logout
+          </button>
+        </li>
         ) : (
           <Link to="/login">
-            <button className="btn btn-sm btn-neutral">Login</button>
+            <button className="ml-3 text-gray-800 hover:text-second duration-500 text-xl">Login</button>
           </Link>
         )}
-          </div>
-          {/* <button>Sign In</button> */}
+          </div>   
         </ul>
       </div>
     </div>

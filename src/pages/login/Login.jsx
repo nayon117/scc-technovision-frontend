@@ -1,8 +1,8 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useState } from "react";
-// import { AuthContext } from "../../Provider/AuthProvider";
 import toast from "react-hot-toast";
+import useAuth from "../../hooks/useAuth";
 // import GoogleLogin from "../GoogleLogin/GoogleLogin";
 
 const Login = () => {
@@ -11,7 +11,7 @@ const Login = () => {
     const [loginError,setLoginError] = useState('')
 
     // context 
-//   const { signIn } = useContext(AuthContext)
+  const { signIn } =  useAuth()
   
 
   const location = useLocation()
@@ -29,17 +29,16 @@ const Login = () => {
         setLoginError('');
 
         // sign In user
-
-        // signIn(email, password)
-        //     .then(res => {
-        //       console.log(res.user);
-        //       toast.success('Login Successful')
-        //       navigate(location?.state ? location.state : '/')
-        //     })
-        //     .catch(error => {
-        //         console.log(error);
-        //         setLoginError(error.message)
-        // })
+        signIn(email, password)
+            .then(res => {
+              console.log(res.user);
+              toast.success('Login Successful')
+              navigate(location?.state ? location.state : '/')
+            })
+            .catch(error => {
+                console.log(error);
+                setLoginError(error.message)
+        })
     }
 
     return (

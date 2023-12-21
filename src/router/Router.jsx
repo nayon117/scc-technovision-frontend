@@ -5,6 +5,7 @@ import ErrorPage from "../pages/errorPage/ErrorPage";
 import Blog from "../pages/blog/Blog";
 import Contact from "../pages/contact/Contact";
 import Login from "../pages/login/Login";
+import Register from "../pages/register/Register";
 
 const router = createBrowserRouter([
   {
@@ -29,7 +30,11 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element:<Login/>
-  }
+  },
+  {
+    path: '/register',
+    element:<Register/>
+  },
 ]);
 
 export default router;

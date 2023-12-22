@@ -84,7 +84,9 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/create-task/${params.id}`),
+          fetch(
+            `https://scc-technovision-backend.vercel.app/create-task/${params.id}`
+          ),
       },
     ],
   },

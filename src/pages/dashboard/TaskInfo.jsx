@@ -2,16 +2,18 @@ import { useEffect, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
 
 import useAuth from "../../hooks/useAuth";
 import axiosSecure from "../../api";
+import Swal from "sweetalert2";
 
 const TaskInfo = () => {
   const [myTask, setMyTask] = useState([]);
   const { user } = useAuth();
   useEffect(() => {
-    fetch(`http://localhost:5000/create-task?email=${user?.email}`)
+    fetch(
+      `https://scc-technovision-backend.vercel.app/create-task?email=${user?.email}`
+    )
       .then((res) => res.json())
       .then((data) => setMyTask(data));
   }, [user?.email]);

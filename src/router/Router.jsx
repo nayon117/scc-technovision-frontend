@@ -28,63 +28,65 @@ const router = createBrowserRouter([
       },
       {
         path: "blog",
-        element: <Blog/>,
+        element: <Blog />,
       },
       {
         path: "/contact",
-        element: <Contact/> ,
+        element: <Contact />,
       },
       {
         path: "/faq",
-        element:<Faq/> ,
+        element: <Faq />,
       },
       {
         path: "/about",
-        element:<About/> ,
+        element: <About />,
       },
     ],
   },
   {
-    path: '/login',
-    element:<Login/>
+    path: "/login",
+    element: <Login />,
   },
   {
-    path: '/register',
-    element:<Register/>
+    path: "/register",
+    element: <Register />,
   },
   {
-    path: '/dashboard',
-    element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
-        path: 'profile',
-        element:<Profile/>
+        path: "profile",
+        element: <Profile />,
       },
       {
-        path: 'create-task',
-        element:<CreateTask/>
+        path: "create-task",
+        element: <CreateTask />,
       },
       {
-        path: 'status',
-        element: <Status/>
+        path: "status",
+        element: <Status />,
       },
       {
-        path: 'task-info',
-        element: <TaskInfo/>
+        path: "task-info",
+        element: <TaskInfo />,
       },
       {
         path: "UpdateTask/:id",
         element: (
           <PrivateRoute>
-              <UpdateTask />  
+            <UpdateTask />
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(
-            `http://localhost:5000/create-task/${params.id}`
-          ),
+          fetch(`http://localhost:5000/create-task/${params.id}`),
       },
-    ]
+    ],
   },
 ]);
 

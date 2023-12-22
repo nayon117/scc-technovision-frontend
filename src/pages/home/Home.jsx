@@ -1,11 +1,13 @@
 import Banner from "../../components/Banner";
 import Testimonial from "../../components/Testimonial";
+import Users from "../../components/Users";
 
 const Home = () => {
   return (
     <div>
       <Banner />
-      <Testimonial/>
+      <Users/>
+      <Testimonial />
     </div>
   );
 };

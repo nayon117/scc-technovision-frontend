@@ -4,7 +4,8 @@ import './index.css'
 import { RouterProvider } from 'react-router-dom'
 import router from './router/Router'
 import { Toaster } from 'react-hot-toast'
-import AuthProvider from './provider/AuthProvider'
+import AuthProvider from './Provider/AuthProvider'
+import 'animate.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

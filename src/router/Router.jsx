@@ -8,6 +8,8 @@ import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 import Faq from "../pages/faq/Faq";
 import About from "../pages/about/About";
+import DashboardLayout from "../layout/DashboardLayout";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +46,10 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element:<Register/>
+  },
+  {
+    path: '/dashboard',
+    element: <PrivateRoute><DashboardLayout/></PrivateRoute>,
   },
 ]);
 

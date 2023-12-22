@@ -14,6 +14,7 @@ import Profile from "../pages/dashboard/Profile";
 import CreateTask from "../pages/dashboard/CreateTask";
 import Status from "../pages/dashboard/Status";
 import TaskInfo from "../pages/dashboard/TaskInfo";
+import UpdateTask from "../components/dashboard/UpdateTask";
 
 const router = createBrowserRouter([
   {
@@ -70,6 +71,18 @@ const router = createBrowserRouter([
       {
         path: 'task-info',
         element: <TaskInfo/>
+      },
+      {
+        path: "UpdateTask/:id",
+        element: (
+          <PrivateRoute>
+              <UpdateTask />  
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(
+            `http://localhost:5000/create-task/${params.id}`
+          ),
       },
     ]
   },

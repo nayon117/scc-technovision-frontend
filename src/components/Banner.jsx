@@ -12,7 +12,7 @@ const Banner = () => {
             Flight
           </p>
           <Link to='/dashboard'>
-          <button className="animate__animated animate__zoomIn animate__infinite	infinite animate__slow bg-white border-first btn hover:bg-first hover:text-white mt-3">Let&apos;s Explore
+          <button className="animate__animated animate__zoomIn animate__infinite	infinite animate__slow bg-white border-first btn hover:bg-first hover:text-white mt-6">Let&apos;s Explore
           </button>
           </Link>
 

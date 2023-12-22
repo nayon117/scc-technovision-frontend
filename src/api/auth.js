@@ -1,4 +1,4 @@
- import axiosPublic from ".";
+ import axiosSecure from ".";
 // save user information in database
 export const saveUser = async (user) => {
     const currentUser = {
@@ -7,6 +7,6 @@ export const saveUser = async (user) => {
         image:user?.photoURL
         
     }
-    const { data } = await axiosPublic.put(`/users/${user?.email}`,currentUser)
+    const { data } = await axiosSecure.put(`/users/${user?.email}`,currentUser)
     return data;
 }

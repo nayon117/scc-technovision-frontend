@@ -11,6 +11,9 @@ import About from "../pages/about/About";
 import DashboardLayout from "../layout/DashboardLayout";
 import PrivateRoute from "./PrivateRoute";
 import Profile from "../pages/dashboard/Profile";
+import CreateTask from "../pages/dashboard/CreateTask";
+import Status from "../pages/dashboard/Status";
+import TaskInfo from "../pages/dashboard/TaskInfo";
 
 const router = createBrowserRouter([
   {
@@ -55,7 +58,19 @@ const router = createBrowserRouter([
       {
         path: 'profile',
         element:<Profile/>
-      }
+      },
+      {
+        path: 'create-task',
+        element:<CreateTask/>
+      },
+      {
+        path: 'status',
+        element: <Status/>
+      },
+      {
+        path: 'task-info',
+        element: <TaskInfo/>
+      },
     ]
   },
 ]);

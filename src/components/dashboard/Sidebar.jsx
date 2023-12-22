@@ -10,6 +10,9 @@ import MenuItem from "./MenuItem";
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { FaHome } from "react-icons/fa";
+import { MdOutlineCreate } from "react-icons/md";
+import { FaCircleInfo } from "react-icons/fa6";
+
 
 const Sidebar = () => {
     const [isActive, setActive] = useState(false);
@@ -62,12 +65,17 @@ const Sidebar = () => {
               <MenuItem
                 icon={BsGraphUp}
                 label="Status"
-                address="/status"
+                address="/dashboard/status"
               />
               <MenuItem
-                icon={BsGraphUp}
-                label="Create a Task"
-                address="/createTask"
+                icon={MdOutlineCreate}
+                label="Create Task"
+                address="/dashboard/create-task"
+              />
+              <MenuItem
+                icon={FaCircleInfo}
+                label="Task Info"
+                address="/dashboard/task-info"
               />
 
               {/* Menu Items */}

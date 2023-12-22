@@ -61,8 +61,13 @@ const Sidebar = () => {
             <nav>
               <MenuItem
                 icon={BsGraphUp}
-                label="Statistics"
-                address="/dashboard"
+                label="Status"
+                address="/status"
+              />
+              <MenuItem
+                icon={BsGraphUp}
+                label="Create a Task"
+                address="/createTask"
               />
 
               {/* Menu Items */}

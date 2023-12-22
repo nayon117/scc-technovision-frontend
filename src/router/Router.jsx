@@ -10,6 +10,7 @@ import Faq from "../pages/faq/Faq";
 import About from "../pages/about/About";
 import DashboardLayout from "../layout/DashboardLayout";
 import PrivateRoute from "./PrivateRoute";
+import Profile from "../pages/dashboard/Profile";
 
 const router = createBrowserRouter([
   {
@@ -49,7 +50,13 @@ const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <PrivateRoute><DashboardLayout/></PrivateRoute>,
+    element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
+    children: [
+      {
+        path: 'profile',
+        element:<Profile/>
+      }
+    ]
   },
 ]);
 

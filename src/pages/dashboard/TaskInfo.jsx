@@ -16,7 +16,7 @@ const TaskInfo = () => {
       .then((data) => setMyTask(data));
   }, [user?.email]);
 
-  const handleDeleteClass = (taskItem) => {
+  const handleDeleteItem = (taskItem) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -73,7 +73,7 @@ const TaskInfo = () => {
               <td>
                 <button
                   className="text-xl"
-                  onClick={() => handleDeleteClass(taskItem)}
+                  onClick={() => handleDeleteItem(taskItem)}
                 >
                   <MdDeleteForever />
                 </button>

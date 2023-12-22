@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { FaGithub } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
+import { saveUser } from "../../api/auth";
 
 const SocialLogin = () => {
   // context
@@ -10,29 +11,39 @@ const SocialLogin = () => {
 
   const navigate = useNavigate();
 
-  const handleGoogleLogin = () => {
-    googleLogin()
-      .then((res) => {
-        console.log(res.user);
-        toast.success("Login Successful");
-        navigate("/");
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error("Something went wrong");
-      });
+   //  google sign in
+   const handleGoogleLogin = async () => {
+    try {
+      // create user
+      const result = await googleLogin();
+
+      // save user in database
+      const dbResponse = await saveUser(result?.user);
+      console.log(dbResponse);
+
+      navigate("/");
+      toast.success("sign In successful");
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.message);
+    }
   };
-  const handleGithubLogin = () => {
-    githubLogin()
-      .then((res) => {
-        console.log(res.user);
-        toast.success("Login Successful");
-        navigate("/");
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error("Something went wrong");
-      });
+   //  google sign in
+   const handleGithubLogin = async () => {
+    try {
+      // create user
+      const result = await githubLogin();
+
+      // save user in database
+      const dbResponse = await saveUser(result?.user);
+      console.log(dbResponse);
+
+      navigate("/");
+      toast.success("sign In successful");
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.message);
+    }
   };
   return (
     <div className="flex items-center justify-center  ">

@@ -18,7 +18,7 @@ const AuthProvider = ({ children }) => {
     const [loading,setLoading] = useState(true)
      
     // Login via google 
-    const googleLogin = () => {
+    const signInWithGoogle = () => {
         setLoading(true)
         return signInWithPopup(auth,provider)
     }
@@ -31,7 +31,7 @@ const AuthProvider = ({ children }) => {
 
 
     // create new user via sign up
-    const signUp = (email, password) => {
+    const createUser = (email, password) => {
         setLoading(true)
        return  createUserWithEmailAndPassword(auth, email, password)
     }
@@ -49,12 +49,12 @@ const AuthProvider = ({ children }) => {
     }
 
     // update user profile 
-    const handleUpdateProfile = (name, photo) => {
-        setLoading(true)
+    const updateUserProfile = (name, photo) => {
         return updateProfile(auth.currentUser, {
-            displayName: name, photoURL:photo
-          })
-    }
+          displayName: name,
+          photoURL: photo,
+        });
+      };
     
     // observer 
     useEffect(() => {
@@ -69,13 +69,13 @@ const AuthProvider = ({ children }) => {
     
 
     const authentications = {
-        googleLogin,
+        signInWithGoogle,
         githubLogin,
-        signUp,
+        createUser,
         signIn,
         user,
         logOut,
-        handleUpdateProfile,
+        updateUserProfile,
         loading
     }
     return (

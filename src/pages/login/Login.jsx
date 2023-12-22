@@ -1,150 +1,172 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { useState } from "react";
-import toast from "react-hot-toast";
+import loginImg from '../../assets/loginImg.json'
+import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
-import SocialLogin from "./SocialLogin";
- 
+import toast from "react-hot-toast";
+import { FcGoogle } from "react-icons/fc";
+import { TbFidgetSpinner } from "react-icons/tb";
+import Lottie from "lottie-react";
+import { saveUser } from "../../api/auth";
+import { FaGithub } from "react-icons/fa";
 
 const Login = () => {
-
-    const [showPassword, setShowPassword] = useState(false)
-    const [loginError,setLoginError] = useState('')
-
-    // context 
-  const { signIn } =  useAuth()
-  
-
+  const { signIn, signInWithGoogle, loading, githubLogin } = useAuth() || {}
+  const navigate = useNavigate();
   const location = useLocation()
-  const navigate = useNavigate()
-    
-    const handleLogin = (e) => {
-        e.preventDefault()
+  const from = location?.state?.from?.pathname || '/'
 
-        // get data from field 
-        const form = new FormData(e.currentTarget)
-        const email = form.get('email')
-        const password = form.get('password')
+  const {
+    register,
+    // reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-        // reset error 
-        setLoginError('');
+  const onSubmit = async (data) => {
+    try {
+      // login
+       const result =  await signIn(data.email, data.password);
+      console.log(result);
 
-        // sign In user
-        signIn(email, password)
-            .then(res => {
-              console.log(res.user);
-              toast.success('Login Successful')
-              navigate(location?.state ? location.state : '/')
-            })
-            .catch(error => {
-                console.log(error);
-                setLoginError(error.message)
-        })
+      navigate(from,{replace:true});
+      toast.success("sign in successful");
+    } catch (error) {
+      console.log(error.message);
     }
+  };
 
-    return (
-        <section className="bg-gray-50 ">
-        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto ">
-          <div className="w-full bg-white rounded-lg shadow   md:mt-0 sm:max-w-md xl:p-0 ">
-            <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl  ">
-                Sign in to your account
-              </h1>
-              <form onSubmit={handleLogin} className="space-y-4 md:space-y-6" >
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block mb-2 text-sm font-medium text-gray-900  "
-                  >
-                    Your email
-                  </label>
-                  <input
-                    type="text"
-                    name="email"
-                    id="email"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                    placeholder="name@company.com"
-                    
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="password"
-                    className="block mb-2 text-sm font-medium text-gray-900 "
-                  >
-                    Password
-                  </label>
-                  <div className="flex items-center relative">
-                  <input
-                    type={showPassword?"text" : "password"}
-                    name="password"
-                    id="password"
-                    placeholder="••••••••"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600  w-full p-2.5  "
-                     
-                  />
-                    <span  onClick={() => setShowPassword(!showPassword)} className="absolute right-2">
-                      {
-                        showPassword ? <FaEyeSlash className="text-xl text-gray-500"/>:<FaEye className="text-xl text-gray-500"/>
-                      }
+ 
+  //  google sign in
+  const handleGoogleLogin = async () => {
+    try {
+      // create user
+      const result = await signInWithGoogle();
+
+      // save user in database
+      const dbResponse = await saveUser(result?.user);
+      console.log(dbResponse);
+
+
+      navigate(from,{replace:true});
+      toast.success("sign in successful");
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.message);
+    }
+  };
+
+  // Github sign in 
+   const handleGithubLogin = async () => {
+    try {
+      // create user
+      const result = await githubLogin();
+
+      // save user in database
+      const dbResponse = await saveUser(result?.user);
+      console.log(dbResponse);
+
+
+      navigate(from,{replace:true});
+      toast.success("sign in successful");
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.message);
+    }
+  };
+
+
+  return (
+    <>
+      <div className="hero min-h-screen bg-base-200">
+        <div className="hero-content flex-col lg:flex-row">
+          <div className="text-center md:w-1/2  ">
+          <Lottie
+              className="w-2/3"
+              loop={false}
+              animationData={loginImg }
+            ></Lottie>
+          </div>
+          <div className="card flex-shrink-0 w-full md:w-1/2 max-w-sm shadow-2xl bg-base-100">
+            <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Email</span>
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  {...register("email", { required: true })}
+                  placeholder="email"
+                  className="input input-bordered"
+                />
+                {errors.email && (
+                  <span className="text-red-500">This field is required</span>
+                )}
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Password</span>
+                </label>
+                <input
+                  type="password"
+                  name="password"
+                  {...register("password", {
+                    minLength: 6,
+                    required: true,
+                  })}
+                  placeholder="password"
+                  className="input input-bordered"
+                />
+                {errors.password?.type === "required" && (
+                  <span className="text-red-500">This field is required</span>
+                )}
+                {errors.password?.type === "minLength" && (
+                  <span className="text-red-500">
+                    password must be at least 6 character long
                   </span>
-                  </div>
-                  
-                </div>
-                {
-                loginError && <p className="text-red-500">{ loginError}</p>          
-             }
-                <div className="flex items-center justify-between">
-                  <div className="flex items-start">
-                    <div className="flex items-center h-5">
-                      <input
-                        id="remember"
-                        aria-describedby="remember"
-                        type="checkbox"
-                        className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 "
-                        required=""
-                      />
-                    </div>
-                    <div className="ml-3 text-sm">
-                      <label
-                        htmlFor="remember"
-                        className="text-gray-500"
-                      >
-                        Remember me
-                      </label>
-                    </div>
-                  </div>
-                  <a  
-                    href="#"
-                    className="text-sm font-medium text-primary-600 hover:underline"
-                  >
-                    Forgot password?
-                  </a>
-                </div>
-                <button
-                  type="submit"
-                  className="w-full btn btn-neutral "
-                >
-                  Sign in
-                </button>
-                <p className="text-sm font-light text-gray-500 ">
-                  Don’t have an account yet?{" "}
-                  <Link to='/register'
-                     
-                    className="font-medium text-primary-600 hover:underline "
-                  >
-                    Sign up
-                  </Link>
-               </p>
-               <p className="divider">or</p> 
-              <SocialLogin/>
-              </form>
-           
-            </div>
+                )}
+              </div>
+
+             
+              <div className="mt-3">
+            <button
+              type="submit"
+              className="bg-[#332885] w-full  btn text-white"
+            >
+              {loading ? (
+                <TbFidgetSpinner className="animate-spin m-auto"></TbFidgetSpinner>
+              ) : (
+                "Login"
+              )}
+            </button>
+          </div>
+            </form>
+            {/* google and github login */}
+            <div className="flex items-center justify-center">
+            <button
+              onClick={handleGoogleLogin}
+              className="  btn bg-white mx-8  p-1  "
+            >
+              <FcGoogle size={32} />
+            </button>
+            <button
+              onClick={handleGithubLogin}
+              className="  btn bg-white mx-8  p-1  "
+            >
+              <FaGithub size={32} />
+            </button>
+          </div>
+            <p className="text-center py-2 mb-3">
+              Already have an account ?
+              <Link className="text-[#332885] ml-1" to="/register">
+                Sign up
+              </Link>
+            </p>
+            <div className="divider px-4"></div>
           </div>
         </div>
-      </section>
-    );
+      </div>
+    </>
+  );
 };
-
 export default Login;
